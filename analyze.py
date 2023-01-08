@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import requests
 import os
+import argparse
 import pandas as pd
 import string
 import re
@@ -91,16 +92,12 @@ def preprocess_data(tweet_df):
     tweet_df['text'] = tweet_df['text'].apply(lambda text: lemmatizer_on_text(text))
     return tweet_df['text'] 
 
-
 def lda_modeling(texts, num_topics=5):
     dictionary = gensim.corpora.Dictionary(texts)
     corpus = [dictionary.doc2bow(text) for text in texts]
     lda = gensim.models.ldamodel.LdaModel(corpus, num_topics=num_topics, id2word = dictionary)
     vis_data = gensimvis.prepare(lda, corpus, dictionary)
     pyLDAvis.save_html(vis_data, 'topics.html')
-
-
-import argparse
 
 def args_parse():
     parser = argparse.ArgumentParser(description='Perform topic modeling on tweets using LDA')
