@@ -1,0 +1,5 @@
+requests >= 2.28
+python-dotenv >= 0.21
+pandas >= 1.5
+nltk >= 3.8
+pyLDAvis >= 3.3
